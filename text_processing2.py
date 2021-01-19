@@ -28,7 +28,19 @@ def digits_to_words(input_string):
             >>> tp2.digits_to_words(digits_str2)
             'three one four one five'
     """
-    digit_string = None
+    # 인식한 숫자와 매칭되는 문자열을 반환할 딕셔너리
+    num_dic = {"1" : "one", "2" : "two", "3" : "three",
+        "4" : "four", "5" : "five", "6" : "six",
+        "7" : "seven", "8" : "eight", "9" : "nine", "0" : "zero"
+        }
+    
+    digit_string_list = []
+    # 숫자가 있으면 list에 해당하는 문자열을 추가함
+    for cha in input_string:
+        if cha in num_dic:
+            digit_string_list.append(num_dic[cha])
+            
+    digit_string = ' '.join(digit_string_list)
     return digit_string
 
 
@@ -64,5 +76,22 @@ def to_camel_case(underscore_str):
             >>> tp2.to_camel_case(underscore_str3)
             "alreadyCamel"
     """
-    camelcase_str = None
+
+    word_list = underscore_str.split("_") # _ 단위로 단어를 쪼갬
+    camel_list = [] # 대소문자 변환해서 넣을 리스트
+    
+    if len(word_list) == 1: # alreadyCamel
+        camel_list = word_list
+    else:
+        is_first_word = True
+        for w in word_list:
+            if w != '':
+                if is_first_word:
+                    camel_list.append(w.lower()) # 첫 단어는 소문자
+                    is_first_word = False
+                else:
+                    camel_list.append(w.capitalize())
+                    # 두번째 단어부터는 첫글자만 대문자
+    camelcase_str = ''.join(camel_list) # 단어 연결
     return camelcase_str
+    
